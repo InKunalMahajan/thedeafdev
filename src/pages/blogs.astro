@@ -1,0 +1,131 @@
+---
+import Layout from "../layouts/MainLayout.astro";
+
+const blogs = [
+  {
+    title: "How I Started The Deaf Dev",
+    description:
+      "The journey of building an accessible coding platform for the Deaf community.",
+    date: "May 2026",
+    category: "Story",
+    link: "/blog/how-i-started",
+  },
+
+  {
+    title: "Why Accessibility Matters in Web Development",
+    description:
+      "Learn why accessible design improves user experience for everyone.",
+    date: "May 2026",
+    category: "Accessibility",
+    link: "/blog/accessibility-matters",
+  },
+
+  {
+    title: "Astro vs React for Beginners",
+    description:
+      "A simple comparison between Astro and React for modern web development.",
+    date: "May 2026",
+    category: "Web Development",
+    link: "/blog/astro-vs-react",
+  },
+
+  {
+    title: "Best Tools for Frontend Developers",
+    description:
+      "Explore useful tools, editors, extensions, and workflows for developers.",
+    date: "May 2026",
+    category: "Tools",
+    link: "/blog/frontend-tools",
+  },
+];
+---
+
+<Layout
+  title="Blog | The Deaf Dev"
+  description="Read articles, tutorials, accessibility insights, and developer stories."
+>
+  <!-- Hero -->
+  <section class="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+    <div class="mx-auto max-w-5xl px-4 py-20 text-center lg:px-8">
+      
+      <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-500">
+        Blog
+      </p>
+
+      <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white md:text-6xl">
+        Articles & Insights
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-600 dark:text-gray-400">
+        Read developer stories, tutorials, accessibility guides,
+        and modern web development insights.
+      </p>
+    </div>
+  </section>
+
+  <!-- Blog Grid -->
+  <section class="bg-gray-50 dark:bg-gray-900">
+    <div class="mx-auto max-w-7xl px-4 py-20 lg:px-8">
+      
+      <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+        
+        {blogs.map((blog) => (
+          <a
+            href={blog.link}
+            class="group rounded-3xl border border-gray-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-gray-800 dark:bg-gray-950"
+          >
+            <!-- Category -->
+            <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+              {blog.category}
+            </span>
+
+            <!-- Title -->
+            <h2 class="mt-6 text-2xl font-bold text-gray-900 dark:text-white">
+              {blog.title}
+            </h2>
+
+            <!-- Description -->
+            <p class="mt-5 leading-7 text-gray-600 dark:text-gray-400">
+              {blog.description}
+            </p>
+
+            <!-- Footer -->
+            <div class="mt-8 flex items-center justify-between">
+              
+              <span class="text-sm text-gray-500">
+                {blog.date}
+              </span>
+
+              <span class="font-semibold text-black transition group-hover:translate-x-1 dark:text-white">
+                Read More →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-black text-white dark:bg-white dark:text-black">
+    <div class="mx-auto max-w-5xl px-4 py-20 text-center lg:px-8">
+      
+      <h2 class="text-4xl font-bold">
+        Keep Learning & Growing
+      </h2>
+
+      <p class="mx-auto mt-6 max-w-2xl text-lg opacity-80">
+        Explore tutorials, resources, and modern web development education.
+      </p>
+
+      <div class="mt-10">
+        <a
+          href="/tutorials"
+          class="rounded-2xl bg-white px-7 py-4 font-semibold text-black transition hover:opacity-90 dark:bg-black dark:text-white"
+        >
+          Explore Tutorials
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

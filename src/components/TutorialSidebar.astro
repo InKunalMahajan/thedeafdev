@@ -1,0 +1,66 @@
+---
+interface Tutorial {
+  id: string;
+  data: {
+    order: number;
+    title: string;
+    category: string;
+  };
+}
+
+const { tutorials, currentId } = Astro.props as {
+  tutorials: Tutorial[];
+  currentId?: string;
+};
+
+const groups = [...tutorials]
+  .sort((a, b) => a.data.category.localeCompare(b.data.category) || a.data.order - b.data.order)
+  .reduce<Record<string, Tutorial[]>>((acc, tutorial) => {
+    acc[tutorial.data.category] ??= [];
+    acc[tutorial.data.category].push(tutorial);
+    return acc;
+  }, {});
+---
+
+<aside class="hidden w-80 shrink-0 border-r border-slate-200 bg-white xl:block">
+  <div class="sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto p-6">
+    <div class="mb-6 rounded-3xl bg-slate-950 p-5 text-white">
+      <p class="text-xs font-bold uppercase tracking-[0.25em] text-yellow-300">Learning Path</p>
+      <h2 class="mt-2 text-2xl font-black">Tutorials</h2>
+      <p class="mt-2 text-sm leading-6 text-slate-300">Step-by-step coding lessons for Deaf students and beginners.</p>
+    </div>
+
+    <nav class="space-y-7">
+      {Object.entries(groups).map(([category, items]) => (
+        <section>
+          <a href={`/tutorials/${category.toLowerCase()}`} class="mb-3 flex items-center justify-between rounded-2xl bg-slate-100 px-4 py-3 font-black text-slate-900 transition hover:bg-yellow-100">
+            <span>{category}</span>
+            <span class="text-xs font-bold text-slate-500">{items.length}</span>
+          </a>
+
+          <div class="space-y-1 pl-2">
+            {items.map((tutorial) => (
+              <a
+                href={`/tutorials/${tutorial.id}`}
+                class:list={[
+                  'group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition',
+                  tutorial.id === currentId
+                    ? 'bg-yellow-300 font-black text-slate-950 shadow-sm'
+                    : 'font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-950',
+                ]}
+              >
+                <span class:list={[
+                  'grid h-7 w-7 shrink-0 place-items-center rounded-full text-xs font-black',
+                  tutorial.id === currentId ? 'bg-slate-950 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-white',
+                ]}>
+                  {tutorial.data.order}
+                </span>
+                <span>{tutorial.data.title}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </nav>
+  </div>
+</aside>
